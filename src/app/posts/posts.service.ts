@@ -4,13 +4,18 @@ import { Subject } from "rxjs";
 
 import { Post } from "./post.model";
 import { map } from "rxjs/operators";
+import { ActivatedRoute, Router } from "@angular/router";
 
 @Injectable({ providedIn: "root" })
 export class PostsService {
 	private posts: Post[] = [];
 	private postsUpdated = new Subject<Post[]>();
 
-	constructor(private http: HttpClient) {}
+	constructor(
+		private http: HttpClient,
+		private router: Router,
+		private route: ActivatedRoute
+	) {}
 
 	getPosts() {
 		this.http
@@ -36,6 +41,10 @@ export class PostsService {
 		return this.postsUpdated.asObservable();
 	}
 
+	getPost(id: string) {
+		return { ...this.posts.find((p) => p.id === id) };
+	}
+
 	addPost(title: string, content: string) {
 		const post: Post = { id: null, title: title, content: content };
 		this.http
@@ -48,6 +57,7 @@ export class PostsService {
 				post.id = id;
 				this.posts.push(post);
 				this.postsUpdated.next([...this.posts]);
+				this.router.navigate(["../"], { relativeTo: this.route });
 			});
 	}
 
