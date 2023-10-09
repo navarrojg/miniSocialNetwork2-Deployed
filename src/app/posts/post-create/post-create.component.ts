@@ -1,4 +1,4 @@
-import { Component, OnInit, OnDestroy } from "@angular/core";
+import { Component, OnInit, OnDestroy, ViewChild } from "@angular/core";
 import { NgForm } from "@angular/forms";
 
 import { PostsService } from "../posts.service";
@@ -17,7 +17,8 @@ export class PostCreateComponent implements OnInit, OnDestroy {
 	private subscription: Subscription;
 	private postId: string;
 	private mode = "create";
-	private post: Post;
+	post: Post;
+	// @ViewChild("postForm", { static: false }) postForm: NgForm;
 
 	constructor(
 		public postsService: PostsService,
@@ -37,9 +38,18 @@ export class PostCreateComponent implements OnInit, OnDestroy {
 		});
 	}
 
-	onAddPost(form: NgForm) {
+	onSavePost(form: NgForm) {
 		if (form.invalid) {
 			return;
+		}
+		if (this.mode === "create") {
+			this.postsService.addPost(form.value.title, form.value.content);
+		} else {
+			this.postsService.updatePost(
+				this.postId,
+				form.value.title,
+				form.value.content
+			);
 		}
 		this.postsService.addPost(form.value.title, form.value.content);
 		form.resetForm();
