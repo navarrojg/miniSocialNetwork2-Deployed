@@ -14,7 +14,7 @@ import { Post } from "../post.model";
 export class PostCreateComponent implements OnInit, OnDestroy {
 	enteredTitle = "";
 	enteredContent = "";
-	private subscription: Subscription;
+
 	private postId: string;
 	private mode = "create";
 	post: Post;
@@ -26,7 +26,7 @@ export class PostCreateComponent implements OnInit, OnDestroy {
 	) {}
 
 	ngOnInit() {
-		this.subscription = this.route.params.subscribe((paramMap: ParamMap) => {
+		this.route.paramMap.subscribe((paramMap: ParamMap) => {
 			if (paramMap.has("postId")) {
 				this.mode = "edit";
 				this.postId = paramMap.get("postId");
@@ -57,11 +57,8 @@ export class PostCreateComponent implements OnInit, OnDestroy {
 				form.value.content
 			);
 		}
-		this.postsService.addPost(form.value.title, form.value.content);
 		form.resetForm();
 	}
 
-	ngOnDestroy() {
-		this.subscription.unsubscribe();
-	}
+	ngOnDestroy() {}
 }
