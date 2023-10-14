@@ -25,6 +25,7 @@ export class PostCreateComponent implements OnInit, OnDestroy {
 	post: Post;
 	isLoading = false;
 	form: FormGroup;
+	imagePreview: string;
 
 	constructor(
 		public postsService: PostsService,
@@ -84,8 +85,12 @@ export class PostCreateComponent implements OnInit, OnDestroy {
 		const file = (event.target as HTMLInputElement).files[0];
 		this.form.patchValue({ image: file });
 		this.form.get("image").updateValueAndValidity();
-		console.log(file);
-		console.log(this.form);
+		const reader = new FileReader();
+		reader.onload = () => {
+			this.imagePreview = reader.result as string;
+		};
+		reader.readAsDataURL(file);
+		
 	}
 
 	ngOnDestroy() {}
