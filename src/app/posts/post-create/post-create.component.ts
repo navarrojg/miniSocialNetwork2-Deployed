@@ -10,6 +10,7 @@ import {
 import { PostsService } from "../posts.service";
 import { ActivatedRoute, ParamMap } from "@angular/router";
 import { Post } from "../post.model";
+import { mimeType } from "./mime-type.validator";
 
 @Component({
 	selector: "app-post-create",
@@ -38,7 +39,10 @@ export class PostCreateComponent implements OnInit, OnDestroy {
 				validators: [Validators.required, Validators.minLength(3)],
 			}),
 			content: new FormControl(null, { validators: Validators.required }),
-			image: new FormControl(null, { validators: [Validators.required] }),
+			image: new FormControl(null, {
+				validators: [Validators.required],
+				asyncValidators: [mimeType],
+			}),
 		});
 		this.route.paramMap.subscribe((paramMap: ParamMap) => {
 			if (paramMap.has("postId")) {
@@ -90,7 +94,6 @@ export class PostCreateComponent implements OnInit, OnDestroy {
 			this.imagePreview = reader.result as string;
 		};
 		reader.readAsDataURL(file);
-		
 	}
 
 	ngOnDestroy() {}
