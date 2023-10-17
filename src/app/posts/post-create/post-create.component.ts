@@ -1,11 +1,5 @@
 import { Component, OnInit, OnDestroy } from "@angular/core";
-import {
-	FormArray,
-	FormControl,
-	FormGroup,
-	NgForm,
-	Validators,
-} from "@angular/forms";
+import { FormControl, FormGroup, Validators } from "@angular/forms";
 
 import { PostsService } from "../posts.service";
 import { ActivatedRoute, ParamMap } from "@angular/router";
