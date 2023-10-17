@@ -18,7 +18,7 @@ export const mimeType = (
 				);
 				let header = "";
 				let isValid = false;
-				for (let i = 0; i < Array.length; i++) {
+				for (let i = 0; i < arr.length; i++) {
 					header += arr[i].toString(16);
 				}
 				switch (header) {
