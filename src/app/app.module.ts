@@ -39,6 +39,7 @@ import { AppRoutingModule } from "./app-routing.module";
 		HttpClientModule,
 		AppRoutingModule,
 		ReactiveFormsModule,
+		MatPaginatorModule,
 	],
 	providers: [],
 	bootstrap: [AppComponent],
