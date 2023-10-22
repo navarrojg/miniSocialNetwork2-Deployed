@@ -97,13 +97,11 @@ export class PostsService {
 		this.http
 			.put("http://localhost:3000/api/posts/" + id, postData)
 			.subscribe((response) => {
-				this.router.navigate(["/"]);
+				this.router.navigate(["../"], { relativeTo: this.route });
 			});
 	}
 
 	deletePost(postId: string) {
-		return this.http
-			.delete("http://localhost:3000/api/posts/" + postId)
-
+		return this.http.delete("http://localhost:3000/api/posts/" + postId);
 	}
 }
