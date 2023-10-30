@@ -11,7 +11,9 @@ const app = express();
 
 mongoose
 	.connect(
-		"mongodb+srv://taras:KSbnP3uSP0qJHFMH@minisocialnetwork.utpskvt.mongodb.net/node-angular?retryWrites=true&w=majority"
+		"mongodb+srv://taras:" +
+			process.env.MONGO_ATLAS_PW +
+			"@minisocialnetwork.utpskvt.mongodb.net/node-angular?retryWrites=true&w=majority"
 	)
 	.then(() => {
 		console.log("Connected to DB!");
