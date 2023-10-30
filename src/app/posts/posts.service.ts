@@ -76,7 +76,7 @@ export class PostsService {
 		this.http
 			.post<{ message: string; post: Post }>(BACKEND_URL, postData)
 			.subscribe((responseData) => {
-				this.router.navigate(["../"], { relativeTo: this.route });
+				this.router.navigate(["/"], { relativeTo: this.route });
 			});
 	}
 
@@ -97,11 +97,9 @@ export class PostsService {
 				creator: null,
 			};
 		}
-		this.http
-			.put("http://localhost:3000/api/posts/" + id, postData)
-			.subscribe((response) => {
-				this.router.navigate(["../"], { relativeTo: this.route });
-			});
+		this.http.put(BACKEND_URL + id, postData).subscribe((response) => {
+			this.router.navigate(["/"]);
+		});
 	}
 
 	deletePost(postId: string) {
